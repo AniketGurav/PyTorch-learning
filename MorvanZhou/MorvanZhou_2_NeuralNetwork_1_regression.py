@@ -1,5 +1,5 @@
 """
-Title: 莫烦Lesson2-关系拟合（回归）
+Title: 莫烦/ 建造第一个神经网络/ Lesson2-关系拟合（回归）
 Main Author: Morvan Zhou
 Editor: Shengjie Xiu
 Time: 2019/3/21

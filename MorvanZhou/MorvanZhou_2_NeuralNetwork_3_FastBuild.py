@@ -1,11 +1,13 @@
 """
-Title: 莫烦/ 建造第一个神经网络/ Lesson2-区分类型（分类）
+Title: 莫烦/ 建造第一个神经网络/ Lesson3-快速搭建法
 Main Author: Morvan Zhou
 Editor: Shengjie Xiu
-Time: 2019/3/21
+Time: 2019/3/22
 Purpose: PyTorch learning
 Environment: python3.5.6 pytorch1.0.1 cuda9.0
 """
+
+# 将MorvanZhou_2_NeuralNetwork_2_Classification.py中搭建网络的方法进行修改
 
 # 分类问题：类型0和类型1，分别在(2,2)附近和(-2,2)附近
 
@@ -27,13 +29,9 @@ y = torch.cat(
     (y0, y1), 0).type(
         torch.LongTensor)    # LongTensor = 64-bit integer
 
-# 画图
-#plt.scatter(x.data.numpy(), y.data.numpy())
-plt.scatter(x[:, 0], x[:, 1], c=y, s=100, lw=0, cmap='RdYlGn')
-plt.show()
+# 构建网络method1
 
 
-# 构建网络
 class Net(torch.nn.Module):  # 继承 torch 的 Module
     def __init__(self, n_feature, n_hidden, n_output):
         super(Net, self).__init__()     # 继承 __init__ 功能
@@ -48,16 +46,47 @@ class Net(torch.nn.Module):  # 继承 torch 的 Module
         return x
 
 
-net = Net(n_feature=2, n_hidden=10, n_output=2)  # 几个类别就几个 output
+net1 = Net(n_feature=2, n_hidden=10, n_output=2)  # 几个类别就几个 output
+print('Method1')
+print(net1)
 
-print(net)
+
+# 构建网络method2
+net2 = torch.nn.Sequential(
+    torch.nn.Linear(2, 10),
+    torch.nn.ReLU(),
+    torch.nn.Linear(10, 2)
+)
+print('Method2: Fast Build')
+print(net2)
+
+'''
+Method1: hidden/predict是我们给Net这个Class起的属性，而激活函数relu（小写）在这里是torch的函数，
+    只在forward的时候才被调用，二者性质不同。更加个性化
+Method2: Linear/ReLU（大写）都是torch.nn.的类，二者性质相同。更加简便
+
+Method1
+Net(
+  (hidden): Linear(in_features=2, out_features=10, bias=True)
+  (predict): Linear(in_features=10, out_features=2, bias=True)
+)
+
+Method2: Fast Build
+Sequential(
+  (0): Linear(in_features=2, out_features=10, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=10, out_features=2, bias=True)
+)
+
+'''
+
 
 # 训练网络
 loss_func = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(net.parameters(), lr=0.005)
+optimizer = torch.optim.SGD(net2.parameters(), lr=0.005)
 
-for t in range(100):
-    out = net(x)
+for t in range(300):
+    out = net2(x)
     loss = loss_func(out, y)
     optimizer.zero_grad()
     loss.backward()
@@ -66,7 +95,7 @@ for t in range(100):
     # 接着上面来
     if t % 2 == 0:
         plt.cla()
-        prediction = torch.max(torch.softmax(out, 1), 1)[1]  #此处softmax可以不做
+        prediction = torch.max(torch.softmax(out, 1), 1)[1]
         pred_y = prediction.data.numpy().squeeze()
         target_y = y.data.numpy()
         plt.scatter(
