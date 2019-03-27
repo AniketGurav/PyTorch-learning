@@ -69,5 +69,6 @@ for t in range(200):
                 'size': 20, 'color': 'red'})
         plt.pause(0.1)
 
+
 plt.ioff()
 plt.show()
