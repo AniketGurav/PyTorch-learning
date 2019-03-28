@@ -145,15 +145,15 @@ if __name__ == '__main__':
                     test_acc_record.append(test_acc)
 
     plt.subplot(211)
-    plt.title('Training Loss')
     plt.plot(loss_record)
     plt.xlabel('Steps')
     plt.ylabel('Loss')
+	plt.title('Training Loss')
 
     plt.subplot(212)
-    plt.title('Testing Accuracy')
     plt.plot(test_acc_record)
     plt.xlabel('10 Steps')
     plt.ylabel('test accuracy')
     plt.show()
+	plt.title('Testing Accuracy')
 
