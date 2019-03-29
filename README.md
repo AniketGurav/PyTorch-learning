@@ -5,12 +5,14 @@
 ## Roadmap
 <div align=center><img src="https://github.com/Michael-Xiu/PyTorch-learning/raw/master/blob/roadmap.png" /></div>
 
-### Tutorials List
+
+### Tutorials List:
 [[Official Tutorials](https://pytorch.org/tutorials/)]
 
 -- [[Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)]
 
 [[Morvan Zhou](https://morvanzhou.github.io/tutorials/machine-learning/torch/)]
+
 
 ### Environment:
 - <a name="PyTorch"></a> **PyTorch** 1.0.1
