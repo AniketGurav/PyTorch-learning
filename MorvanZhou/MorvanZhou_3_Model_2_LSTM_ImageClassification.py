@@ -1,5 +1,5 @@
 """
-Title: 莫烦/ 高级神经神经网络结构/ Lesson2-RNN-Classification
+Title: 莫烦/ 高级神经网络结构/ Lesson2-RNN-Classification
 Main Author: Morvan Zhou
 Editor: Shengjie Xiu
 Time: 2019/3/28
